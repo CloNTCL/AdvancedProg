@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 // Contrôleur pour la connexion
 const loginUser = async (req, res) => {
@@ -24,17 +24,17 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Mot de passe incorrect.' });
         }
 
-        // Génération d'un token JWT
-        // const token = jwt.sign(
-        //     { id: user._id, role: user.role },
-        //     process.env.JWT_SECRET, // Assurez-vous que JWT_SECRET est défini dans vos variables d'environnement
-        //     { expiresIn: '1d' }
-        // );
+         //Génération d'un token JWT
+         const token = jwt.sign(
+             { id: user._id, role: user.role },
+             process.env.JWT_SECRET, // Assurez-vous que JWT_SECRET est défini dans vos variables d'environnement
+             { expiresIn: '1d' }
+         );
 
         // Réponse avec les informations de l'utilisateur et le token
         res.status(200).json({
             message: 'Connexion réussie.',
-            //token,
+            token,
             user: {
                 id: user._id,
                 email: user.email,
