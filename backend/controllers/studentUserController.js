@@ -1,4 +1,4 @@
-const User = require('../models/userModel');
+const User = require('../models/studentUserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -27,7 +27,7 @@ const loginUser = async (req, res) => {
          //Génération d'un token JWT
          const token = jwt.sign(
              { id: user._id, role: user.role },
-             process.env.JWT_SECRET, // Assurez-vous que JWT_SECRET est défini dans vos variables d'environnement
+             process.env.JWT_SECRET, 
              { expiresIn: '1d' }
          );
 
@@ -47,5 +47,5 @@ const loginUser = async (req, res) => {
 };
 
 module.exports = {
-    loginUser,
+    loginUser
 };

@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const UserRoutes = require('./routes/userRoutes');
+const TeacherUserRoutes = require('./routes/teacherUserRoutes');
+const StudentUserRoutes = require('./routes/studentUserRoutes');
+const AdminUserRoutes = require('./routes/administrateurUserRoutes');
 
 dotenv.config({path: './.env'})
 
@@ -17,8 +19,9 @@ mongoose.connect(DB).then(()=> console.log('DB connection successfull'));
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/v1/users', UserRoutes); 
-
+app.use('/api/v1/teacherUsers', TeacherUserRoutes); 
+app.use('/api/v1/studentUsers', StudentUserRoutes); 
+app.use('/api/v1/adminUsers', AdminUserRoutes); 
 
 app.listen(3000, () => {
   console.log(`Server running on port ${3000}`);
