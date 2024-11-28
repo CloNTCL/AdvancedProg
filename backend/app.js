@@ -11,7 +11,7 @@ const app = express();
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
-mongoose.connect(DB).then(()=> console.log('DB connection successfull'));
+//mongoose.connect(DB).then(()=> console.log('DB connection successfull'));
 
 // Middleware pour parser les données JSON dans le body
 app.use(cors());
