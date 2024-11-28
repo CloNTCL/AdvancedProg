@@ -6,6 +6,7 @@ const cors = require('cors');
 const TeacherUserRoutes = require('./routes/teacherUserRoutes');
 const StudentUserRoutes = require('./routes/studentUserRoutes');
 const AdminUserRoutes = require('./routes/administrateurUserRoutes');
+courseRoutes = require('./routes/courseRoutes');
 
 dotenv.config({path: './.env'})
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use('/api/v1/teacherUsers', TeacherUserRoutes); 
 app.use('/api/v1/studentUsers', StudentUserRoutes); 
 app.use('/api/v1/adminUsers', AdminUserRoutes); 
+app.use('/api/v1/courses', courseRoutes);
 
 app.listen(3000, () => {
   console.log(`Server running on port ${3000}`);
