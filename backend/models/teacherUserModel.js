@@ -14,12 +14,11 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['student', 'teacher', 'admin'],
-        required: true,
-    }
+        default: 'teacher', 
+      },
 });
 
-// Middleware pour hacher le mot de passe (si nécessaire dans d'autres cas d'utilisation)
+
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     const salt = await bcrypt.genSalt(10);
@@ -27,4 +26,4 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('TeacherUser', userSchema);
