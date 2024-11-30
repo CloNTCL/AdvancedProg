@@ -1,13 +1,33 @@
+/* index.css */
+:root {
+  /* Couleurs principales */
+  --primary-color: #C6DAE7; /* Bleu clair */
+  --secondary-color: hsla(0, 0%, 85%, 0.251); /* Gris clair */
+  --text-color: #000; /* Texte noir */
+  --button-color: #6CABD3;
+  --background-color: #fff; /* Blanc */
+  --link-color: #000; /* Liens */
+  --link-hover-color: #0056b3; /* Liens au survol */
+
+  /* Polices */
+  --font-family: 'Roboto', 'Segoe UI', sans-serif;
+  --font-size-base: 16px;
+  --font-size-large: 18px;
+  --font-size-small: 14px;
+}
+
+/* Styles globaux */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: var(--background-color);
+  color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
