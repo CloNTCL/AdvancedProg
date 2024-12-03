@@ -14,7 +14,7 @@ function App() {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/student">Student</Link></li>
           <li><Link to="/authentification">Authentification</Link></li>
-          <li><Link to="/teacher">Teacher</Link></li> {/* Lien vers la page des professeurs */}
+          <li><Link to="/teacher">Teacher</Link></li> 
         </ul>
       </nav>
 
@@ -22,8 +22,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/student" element={<Student />} />
         <Route path="/authentification" element={<Authentification />} />
-        <Route path="/teacher" element={<TeacherHome />} /> {/* Route vers la page des professeurs */}
-        <Route path="/teacher/cours/:courseCode" element={<TeacherCourseDetails />} /> {/* Route vers les détails du cours */}
+        <Route path="/teacher" element={<TeacherHome />} /> 
+        <Route path="/teacher/cours/:courseCode" element={<TeacherCourseDetails />} /> 
       </Routes>
     </Router>
   );

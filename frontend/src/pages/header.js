@@ -71,7 +71,7 @@ const Header = () => {
           <IconButton
             size="large"
             edge="end"
-            color="default"  // Changer la couleur pour l'icône de profil
+            color="default"  
             onClick={handleProfileMenuOpen}
           >
             <AccountCircle />

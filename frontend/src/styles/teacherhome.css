@@ -1,13 +1,13 @@
-/* Conteneur général */
+
 .teacher-home-container {
     font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa; /* Fond clair pour un design moderne */
+    background-color: #f8f9fa; 
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
   
-  /* Header */
+
   .teacher-header {
     background-color: #007bff;
   }
@@ -29,11 +29,11 @@
   }
   
   .MuiBadge-badge {
-    background-color: #ff1744; /* Point rouge pour notifications */
+    background-color: #ff1744; 
     color: white;
   }
   
-  /* Contenu principal */
+ 
   .teacher-content {
     padding: 20px;
     display: flex;
@@ -41,7 +41,7 @@
     align-items: center;
   }
   
-  /* Liste des cours */
+
   .course-list {
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
     max-width: 600px;
   }
   
-  /* Carte des cours */
+  
   .course-card {
     display: flex;
     flex-direction: column;

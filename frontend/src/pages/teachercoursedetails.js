@@ -53,7 +53,7 @@ const TeacherCourseDetails = () => {
 
   return (
     <div className="teacher-course-details-container">
-      <Header /> {/* Ajout du Header depuis le composant séparé */}
+      <Header /> 
       <main className="teacher-course-content">
         <h1>Détails du Cours : {course.name}</h1>
         <div className="charts-container">

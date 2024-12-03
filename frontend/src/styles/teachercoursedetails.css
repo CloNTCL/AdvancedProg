@@ -1,21 +1,19 @@
 .teacher-course-details-container {
-    font-family: 'Roboto', sans-serif; /* Cohérence avec le style global */
+    font-family: 'Roboto', sans-serif; 
     padding: 20px;
-    background-color: #f8f9fa; /* Fond clair */
-    min-height: 100vh; /* Assure que la page occupe toute la hauteur */
-    display: flex;
-    flex-direction: column;
+    background-color: #f8f9fa; 
+    min-height: 100vh; 
   }
   
-  /* Header */
+ 
   .teacher-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #007bff; /* Couleur principale */
+    background-color: #007bff; 
     color: white;
     padding: 15px 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre légère */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   }
   
   .school-logo {
@@ -33,14 +31,14 @@
   }
   
   .MuiBadge-badge {
-    background-color: #ff1744; /* Point rouge vif pour notifications */
+    background-color: #ff1744; 
     color: white;
     font-size: 12px;
     height: 16px;
     min-width: 16px;
   }
   
-  /* Contenu principal */
+  
   .teacher-course-content {
     margin-top: 20px;
     padding: 20px;
@@ -51,7 +49,7 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 20px;
-    background-color: #ffffff; /* Fond blanc pour contraste */
+    background-color: #ffffff; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,24 +58,23 @@
   .chart-item {
     text-align: center;
     padding: 15px;
-    background-color: #e9ecef; /* Fond légèrement gris */
+    background-color: #e9ecef; 
     border-radius: 8px;
-    transition: transform 0.3s, box-shadow 0.3s; /* Animation pour dynamisme */
   }
   
   .chart-item:hover {
-    transform: translateY(-5px); /* Animation au survol */
+    transform: translateY(-5px); 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
   .chart-item h3 {
     margin-bottom: 10px;
     font-size: 18px;
-    color: #343a40; /* Texte foncé pour lisibilité */
+    color: #343a40; 
   }
   
   .chart-item canvas {
-    max-width: 100%; /* S'adapte à la taille de la carte */
+    max-width: 100%; 
     margin: auto;
   }
   
