@@ -1,64 +1,64 @@
 /* Conteneur principal de la barre de navigation */
 .teacher-header {
-  background-color: white;  /* Fond blanc */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Légère ombre sous la navbar */
+  background-color: white;  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: 0 20px;  /* Espacement horizontal */
+  padding: 0 20px; 
 }
 
 /* Toolbar */
 .toolbar {
   display: flex;
-  justify-content: space-between;  /* Espacement égal entre les éléments */
-  height: 64px; /* Hauteur standard de la toolbar */
-  padding: 0;  /* Retirer padding excessif */
+  justify-content: space-between;  
+  height: 64px; 
+  padding: 0;  
 }
 
 /* Logo */
 .header-logo {
   display: flex;
-  gap: 20px;  /* Espacement plus large entre le logo et le titre */
+  gap: 20px; 
 }
 
 .school-logo {
-  height: 40px;  /* Taille du logo */
+  height: 40px;  
   width: auto;
 }
 
 /* Typographie du titre */
 .header-logo .MuiTypography-root {
   font-weight: bold;
-  color: #343a40;  /* Couleur grise pour le texte */
+  color: #343a40; 
   font-size: 24px;
 }
 
 /* Icônes de notification et de profil */
 .header-icons {
   display: flex;
-  gap: 20px;  /* Espacement entre les icônes */
+  gap: 20px; 
 }
 
 /* Icône de notification */
 .MuiBadge-dot {
-  background-color: #ff0000; /* Rouge pour l'indicateur de notification */
+  background-color: #ff0000; 
 }
 
 /* Icône de profil */
 .MuiAccountCircle-root {
-  font-size: 32px;  /* Taille de l'icône du profil */
+  font-size: 32px; 
 }
 
 /* Menu des notifications */
 .MuiMenu-paper {
-  min-width: 200px;  /* Largeur du menu des notifications */
+  min-width: 200px; 
   padding: 10px;
 }
 
 .MuiMenuItem-root {
-  font-size: 14px;  /* Taille des éléments du menu */
-  color: #343a40;  /* Couleur sombre pour les éléments */
+  font-size: 14px; 
+  color: #343a40;
 }
 
 /* Menu déroulant (Profil) */
@@ -67,7 +67,7 @@
 }
 
 .MuiMenuItem-root:hover {
-  background-color: #f1f1f1;  /* Couleur de survol des éléments */
+  background-color: #f1f1f1;  
 }
 
 /* Menu de la notification : message par défaut */

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Button, Box, Typography, MenuItem, Select, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button, Box, Typography, Select, MenuItem, IconButton } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/evaluationForm.css";
 
@@ -8,7 +8,7 @@ const CreateEvaluationForm = () => {
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
-  // Preloaded questions from the PDF
+  // Questions par défaut
   const defaultQuestions = [
     {
       id: 1,
@@ -36,14 +36,14 @@ const CreateEvaluationForm = () => {
     },
     {
       id: 5,
-      text: "The course presentations explained the concepts effectively",
+      text: "What overall rating will you give this course?",
       type: "Rating",
       choices: [],
     },
     {
       id: 6,
-      text: "The course syllabus was clear and useful in my career",
-      type: "Rating",
+      text: "What are the major strengths of this course?",
+      type: "Open-Ended",
       choices: [],
     },
     {
@@ -64,13 +64,19 @@ const CreateEvaluationForm = () => {
       type: "Open-Ended",
       choices: [],
     },
+    {
+      id: 10,
+      text: "Are you satisfy with this course?",
+      type: "Single Choice",
+      choices: ["Very satisfy", "satisfy", "Not satisfy"],
+    },
   ];
 
   const [questions, setQuestions] = useState(defaultQuestions);
-  const [startDate] = useState(today); // Automatically set to today's date
+  const [startDate] = useState(today); // Début = aujourd'hui
   const [endDate, setEndDate] = useState("");
 
-  // Add a custom question
+  // Ajouter une nouvelle question
   const handleAddQuestion = () => {
     const newQuestion = {
       id: questions.length + 1,
@@ -81,12 +87,12 @@ const CreateEvaluationForm = () => {
     setQuestions([...questions, newQuestion]);
   };
 
-  // Update question text
+  // Mettre à jour le texte de la question
   const handleQuestionChange = (id, text) => {
     setQuestions(questions.map((q) => (q.id === id ? { ...q, text } : q)));
   };
 
-  // Update question type
+  // Mettre à jour le type de question
   const handleTypeChange = (id, type) => {
     setQuestions(
       questions.map((q) =>
@@ -97,7 +103,7 @@ const CreateEvaluationForm = () => {
     );
   };
 
-  // Add a choice to a question
+  // Ajouter un choix
   const handleAddChoice = (id) => {
     setQuestions(
       questions.map((q) =>
@@ -106,7 +112,7 @@ const CreateEvaluationForm = () => {
     );
   };
 
-  // Update choice text
+  // Mettre à jour un choix
   const handleChoiceChange = (id, index, text) => {
     setQuestions(
       questions.map((q) =>
@@ -120,7 +126,7 @@ const CreateEvaluationForm = () => {
     );
   };
 
-  // Remove a choice
+  // Supprimer un choix
   const handleRemoveChoice = (id, index) => {
     setQuestions(
       questions.map((q) =>
@@ -131,27 +137,12 @@ const CreateEvaluationForm = () => {
     );
   };
 
-  // Remove a question
+  // Supprimer une question
   const handleRemoveQuestion = (id) => {
     setQuestions(questions.filter((q) => q.id !== id));
   };
 
-  // Move question to a new position
-  const handleMoveQuestion = (id, direction) => {
-    const index = questions.findIndex((q) => q.id === id);
-    if (direction === "up" && index > 0) {
-      const reordered = [...questions];
-      [reordered[index - 1], reordered[index]] = [reordered[index], reordered[index - 1]];
-      setQuestions(reordered);
-    }
-    if (direction === "down" && index < questions.length - 1) {
-      const reordered = [...questions];
-      [reordered[index + 1], reordered[index]] = [reordered[index], reordered[index + 1]];
-      setQuestions(reordered);
-    }
-  };
-
-  // Submit evaluation form
+  // Soumettre le formulaire
   const handleSubmit = async () => {
     const evaluationData = {
       course_id: courseId,
@@ -168,10 +159,9 @@ const CreateEvaluationForm = () => {
       });
 
       if (response.ok) {
-        alert("Evaluation created successfully!");
-        navigate("/admin");
+        navigate("/admin"); // Retourner à la page admin
       } else {
-        throw new Error("Failed to create evaluation");
+        throw new Error("Please, fill all fields!");
       }
     } catch (error) {
       alert(error.message);
@@ -243,25 +233,13 @@ const CreateEvaluationForm = () => {
                 </Button>
               </Box>
             )}
-            <Box className="action-buttons">
-              <Button
-                variant="text"
-                onClick={() => handleMoveQuestion(question.id, "up")}
-                disabled={index === 0}
-              >
-                ↑
-              </Button>
-              <Button
-                variant="text"
-                onClick={() => handleMoveQuestion(question.id, "down")}
-                disabled={index === questions.length - 1}
-              >
-                ↓
-              </Button>
-              <Button variant="text" color="error" onClick={() => handleRemoveQuestion(question.id)}>
-                🗑️
-              </Button>
-            </Box>
+            <Button
+              variant="text"
+              color="error"
+              onClick={() => handleRemoveQuestion(question.id)}
+            >
+              Remove Question
+            </Button>
           </Box>
         ))}
         <Button variant="outlined" color="primary" onClick={handleAddQuestion}>

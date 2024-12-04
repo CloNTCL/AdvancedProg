@@ -12,7 +12,7 @@ const AdminHome = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch modules
+  // Fetch courses (modules)
   useEffect(() => {
     const fetchModules = async () => {
       try {
@@ -46,9 +46,12 @@ const AdminHome = () => {
     setFilteredModules(filtered);
   };
 
-  // Navigate to the custom evaluation form
-  const handleCreateEvaluation = (courseId) => {
-    navigate(`/admin/create-evaluation/${courseId}`);
+  // Navigate to the custom evaluation form with all required info
+  const handleCreateEvaluation = (course) => {
+    const { course_id, course_name, teacher_name, students } = course;
+    
+    // Redirection avec les informations nécessaires dans l'URL
+    navigate(`/admin/create-evaluation/${course_id}`);
   };
 
   if (isLoading) {
@@ -96,7 +99,7 @@ const AdminHome = () => {
                     variant="contained"
                     color="primary"
                     className="create-evaluation-button"
-                    onClick={() => handleCreateEvaluation(module.course_id)}
+                    onClick={() => handleCreateEvaluation(module)} // Pass all course info here
                   >
                     Create Evaluation
                   </Button>
