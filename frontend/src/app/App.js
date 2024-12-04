@@ -5,23 +5,18 @@ import Student from "../pages/Student";
 import Authentification from "../pages/authentification";
 import TeacherHome from "../pages/teacherhome";
 import TeacherCourseDetails from "../pages/teachercoursedetails";
+import Admin from "../pages/Admin";
+import AdminModuleDetails from '../pages/AdminModuleDetails';
 
 function App() {
   return (
     <Router>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/student">Student</Link></li>
-          <li><Link to="/authentification">Authentification</Link></li>
-          <li><Link to="/teacher">Teacher</Link></li> 
-        </ul>
-      </nav>
-
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/student" element={<Student />} />
         <Route path="/authentification" element={<Authentification />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/module/:code" element={<AdminModuleDetails />} />
+        <Route path="/student" element={<Student />} />
         <Route path="/teacher" element={<TeacherHome />} /> 
         <Route path="/teacher/cours/:courseCode" element={<TeacherCourseDetails />} /> 
       </Routes>

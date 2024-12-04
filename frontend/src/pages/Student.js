@@ -8,7 +8,7 @@ const Student = () => {
   );
 };
 
-// Eemple
+// Exemple
 const courses = [
   { id: 1, name: 'Mathématiques Avancées' },
   { id: 2, name: 'Physique Quantique' },

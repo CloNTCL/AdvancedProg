@@ -1,0 +1,182 @@
+/* General container styles */
+.modules-container {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1200px;
+  }
+  
+  /* Content layout */
+  .modules-content {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  /* Search bar styles */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-bar button {
+    padding: 10px 15px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-bar button:hover {
+    background-color: var(--link-hover-color);
+  }
+  
+  /* Modules list */
+  .modules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .module-button {
+    padding: 15px;
+    font-size: 16px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .module-button:hover {
+    background-color: #f1f1f1;
+  }
+  
+
+
+  /*modules details*/
+
+  /* General container */
+.module-details-container {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+  }
+  
+  .module-details-content {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .module-details-form-text{
+    font-size: x-small;
+  }
+  
+  /* Criteria box */
+  .criteria-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .criteria-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .criteria-table th,
+  .criteria-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .criteria-table th {
+    text-align: center;
+  }
+  
+  .slider {
+    width: 100%;
+  }
+  
+  /* Add question */
+  .add-question {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .add-question input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-question button {
+    padding: 10px 15px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-question button:hover {
+    background-color: var(--link-hover-color);
+  }
+  
+  /* Comment section */
+  .comment-section {
+    margin-bottom: 20px;
+  }
+  
+  .comment-section textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+  }
+  
+  /* Submit section */
+  .submit-section {
+    text-align: right;
+  }
+  
+  .submit-section button {
+    padding: 10px 20px;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-section button:hover {
+    background-color: var(--link-hover-color);
+  }
+  
