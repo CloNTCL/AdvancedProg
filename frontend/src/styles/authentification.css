@@ -1,72 +1,146 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Global */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f9ff; /* Bleu très clair */
+  color: #333; /* Gris foncé pour le texte */
+}
+
+/* Navigation Bar */
+nav {
+  background-color: #377fbc; /* Bleu */
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #cce7ff; /* Bleu clair */
+}
+
+/* Container Principal */
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: var(--primary-color);
-  }
-  
-  .auth-box {
-    background: var(--background-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
-  }
-  
-  .auth-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .auth-field {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .auth-field label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  .auth-field input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .auth-button {
-    width: 100%;
-    padding: 10px;
-    background-color: var(--button-color);
-    color: var(--background-color);
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .auth-button:hover {
-    background-color: var(--primary-color);
-  }
-  
-  .auth-footer {
-    margin-top: 20px;
-    font-size: 14px;
-    color: var(--secondary-color);
-  }
-  
-  .auth-footer a {
-    color: var(--primary-color);
-    text-decoration: none;
-  }
-  
-  .auth-footer a:hover {
-    text-decoration: underline;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../assets/images/fabLab.png'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+/* Auth Box */
+.auth-box {
+  background-color: white;
+  width: 600px;
+  padding: 4rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+  text-align: center;
+  color: #377fbc;
+  margin-bottom: 1.5rem;
+}
+
+.auth-field {
+  margin-bottom: 1.2rem;
+}
+
+.auth-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.auth-field input:focus {
+  outline: none;
+  border-color: #377fbc;
+  box-shadow: 0 0 4px rgba(0, 102, 204, 0.5);
+}
+
+.auth-button {
+  background-color: #377fbc;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+  background-color: #004d99;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-links a {
+  text-decoration: none;
+  color: #377fbc;
+  font-weight: bold;
+}
+
+.auth-links a:hover {
+  color: #004d99;
+}
+.school-logo {
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  width: 200px;
+  height: 13300px;
+}
+.school-logoC {
+  align-items: center;
+  text-align: center;
+}
