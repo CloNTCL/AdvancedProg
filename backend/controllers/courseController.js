@@ -37,3 +37,31 @@ exports.getCourseById = async (req, res) => {
     });
   }
 };
+
+// Update course status
+exports.updateCourseStatus = async (req, res) => {
+  try {
+    const { id } = req.params; // Course ID
+    const { is_being_evaluated } = req.body;
+
+    const updatedCourse = await Course.findOneAndUpdate(
+      { course_id: id },
+      { is_being_evaluated },
+      { new: true }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found." });
+    }
+
+    res.status(200).json({
+      message: "Course status updated successfully.",
+      course: updatedCourse,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error updating course status.",
+      error: error.message,
+    });
+  }
+};

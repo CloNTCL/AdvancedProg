@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const courseController = require('../controllers/courseController');
 
-// Récupérer tous les cours
+// Get all courses
 router.get('/', courseController.getAllCourses);
 
-// Récupérer un cours spécifique par son ID
+// Get a specific course by ID
 router.get('/:id', courseController.getCourseById);
+
+// Update a course's status
+router.patch('/:id', courseController.updateCourseStatus);
 
 module.exports = router;

@@ -150,23 +150,37 @@ const CreateEvaluationForm = () => {
       end_date: endDate,
       questions,
     };
-
+  
     try {
-      const response = await fetch("http://localhost:3000/api/v1/evaluations", {
+      // Step 1: Create the evaluation
+      const evaluationResponse = await fetch("http://localhost:3000/api/v1/evaluations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(evaluationData),
       });
-
-      if (response.ok) {
-        navigate("/admin"); // Retourner à la page admin
-      } else {
-        throw new Error("Please, fill all fields!");
+  
+      if (!evaluationResponse.ok) {
+        throw new Error("Failed to create evaluation.");
       }
+  
+      // Step 2: Update the course status to being evaluated
+      const courseUpdateResponse = await fetch(`http://localhost:3000/api/v1/courses/${courseId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ is_being_evaluated: true }),
+      });
+  
+      if (!courseUpdateResponse.ok) {
+        throw new Error("Failed to update course status.");
+      }
+  
+      // Navigate back to the admin page on success
+      navigate("/admin");
     } catch (error) {
       alert(error.message);
     }
   };
+  
 
   return (
     <Box className="evaluation-form-container">

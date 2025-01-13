@@ -67,3 +67,22 @@
     text-align: center;
     margin-top: 20px;
   }
+
+  .module-section {
+    margin-bottom: 40px;
+    width: 50%;
+    /* align-items: center;
+    align-content: center; */
+  }
+  
+  .create-evaluation-button:disabled {
+    background-color: #d6d6d6;
+    color: #ffffff;
+    cursor: not-allowed;
+  }
+  
+  .evaluation-status {
+    font-weight: bold;
+    color: #007bff;
+  }
+  

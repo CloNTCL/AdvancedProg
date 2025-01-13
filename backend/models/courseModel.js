@@ -23,6 +23,14 @@ const courseSchema = new mongoose.Schema({
     type: [String],
     required: [true, "La liste des étudiants est obligatoire"]
   },
+  completed_students: {
+    type: [String], // Students who completed the evaluation
+    default: []
+  },
+  is_being_evaluated: {
+    type: Boolean, // Whether the course is under evaluation
+    default: false
+  },
   start_date: {
     type: Date,
     required: [true, "Le champ 'start_date' est obligatoire"]

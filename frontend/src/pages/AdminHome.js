@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Box, TextField, Button } from "@mui/material";
 import Header from "../pages/header";
-import { useNavigate } from "react-router-dom"; // For routing
+import { useNavigate } from "react-router-dom";
 import "../styles/admin.css";
 
 const AdminHome = () => {
@@ -12,7 +12,6 @@ const AdminHome = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Fetch courses (modules)
   useEffect(() => {
     const fetchModules = async () => {
       try {
@@ -33,7 +32,6 @@ const AdminHome = () => {
     fetchModules();
   }, []);
 
-  // Handle search
   const handleSearchChange = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -46,12 +44,8 @@ const AdminHome = () => {
     setFilteredModules(filtered);
   };
 
-  // Navigate to the custom evaluation form with all required info
   const handleCreateEvaluation = (course) => {
-    const { course_id, course_name, teacher_name, students } = course;
-    
-    // Redirection avec les informations nécessaires dans l'URL
-    navigate(`/admin/create-evaluation/${course_id}`);
+    navigate(`/admin/create-evaluation/${course.course_id}`);
   };
 
   if (isLoading) {
@@ -61,6 +55,13 @@ const AdminHome = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
+
+  const beingEvaluatedModules = filteredModules.filter(
+    (module) => module.is_being_evaluated
+  );
+  const notEvaluatedModules = filteredModules.filter(
+    (module) => !module.is_being_evaluated
+  );
 
   return (
     <div className="admin-home-container">
@@ -78,39 +79,88 @@ const AdminHome = () => {
             className="search-input"
           />
         </Box>
-        <Box className="module-list">
-          {filteredModules.length > 0 ? (
-            filteredModules.map((module) => (
-              <Card className="module-card" key={module._id}>
-                <CardContent>
-                  <Typography variant="h6" className="module-title">
-                    {module.course_name}
-                  </Typography>
-                  <Typography variant="subtitle1" className="module-code">
-                    Code: {module.course_id}
-                  </Typography>
-                  <Typography variant="body2" className="module-dates">
-                    Start Date: {module.start_date.split('T')[0]}
-                  </Typography>
-                  <Typography variant="body2" className="module-dates">
-                    End Date: {module.end_date.split('T')[0]}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className="create-evaluation-button"
-                    onClick={() => handleCreateEvaluation(module)} // Pass all course info here
-                  >
-                    Create Evaluation
-                  </Button>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <Typography variant="body1" className="no-modules">
-              No modules found.
-            </Typography>
-          )}
+
+        <Box className="module-section">
+          <Typography variant="h5" gutterBottom>
+            Currently Being Evaluated
+          </Typography>
+          <Box className="module-list">
+            {beingEvaluatedModules.length > 0 ? (
+              beingEvaluatedModules.map((module) => (
+                <Card className="module-card" key={module._id}>
+                  <CardContent>
+                    <Typography variant="h6" className="module-title">
+                      {module.course_name}
+                    </Typography>
+                    <Typography variant="subtitle1" className="module-code">
+                      Code: {module.course_id}
+                    </Typography>
+                    <Typography variant="body2" className="module-dates">
+                      Start Date: {module.start_date.split("T")[0]}
+                    </Typography>
+                    <Typography variant="body2" className="module-dates">
+                      End Date: {module.end_date.split("T")[0]}
+                    </Typography>
+                    <Typography variant="body2" className="evaluation-status">
+                      Participants Completed: {module.completed_students?.length || 0}/{module.students?.length || 0}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="create-evaluation-button"
+                      disabled
+                    >
+                      Create Evaluation
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <Typography variant="body1" className="no-modules">
+                No modules are currently being evaluated.
+              </Typography>
+            )}
+          </Box>
+        </Box>
+
+        <Box className="module-section">
+          <Typography variant="h5" gutterBottom>
+            Not Evaluated
+          </Typography>
+          <Box className="module-list">
+            {notEvaluatedModules.length > 0 ? (
+              notEvaluatedModules.map((module) => (
+                <Card className="module-card" key={module._id}>
+                  <CardContent>
+                    <Typography variant="h6" className="module-title">
+                      {module.course_name}
+                    </Typography>
+                    <Typography variant="subtitle1" className="module-code">
+                      Code: {module.course_id}
+                    </Typography>
+                    <Typography variant="body2" className="module-dates">
+                      Start Date: {module.start_date.split("T")[0]}
+                    </Typography>
+                    <Typography variant="body2" className="module-dates">
+                      End Date: {module.end_date.split("T")[0]}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="create-evaluation-button"
+                      onClick={() => handleCreateEvaluation(module)}
+                    >
+                      Create Evaluation
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <Typography variant="body1" className="no-modules">
+                No modules to evaluate.
+              </Typography>
+            )}
+          </Box>
         </Box>
       </main>
     </div>
