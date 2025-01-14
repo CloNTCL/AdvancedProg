@@ -1,3 +1,27 @@
+/* Teacher Home Container */
+.teacher-home-container {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Course Section Titles */
+.course-section {
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Disabled Button Style */
+.disabled-button {
+  background-color: #d6d6d6;
+  color: #7a7a7a;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Conteneur principal de la barre de navigation */
 .teacher-header {
   background-color: white;  

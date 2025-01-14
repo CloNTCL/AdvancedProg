@@ -17,25 +17,30 @@ const StudentHome = () => {
   useEffect(() => {
     const fetchEvaluations = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/v1/courses");
+        const response = await fetch("http://localhost:3000/api/v1/evaluations/getAllEvaluation");
         if (!response.ok) {
           throw new Error("Failed to fetch courses");
         }
-
+  
         const data = await response.json();
         // Filtrer les cours où l'étudiant est inscrit
-        const studentCourses = data.courses.filter((course) =>
+        const studentCourses = data.evaluation.filter((course) =>
           course.students.includes(email)
         );
-
+  
         // Séparer les évaluations en cours et passées
         const ongoing = studentCourses.filter((course) => {
-          return new Date(course.end_date) > new Date(); // Cours en cours
+          // Vérifie si la date de fin est dans le futur ET que l'étudiant n'a pas encore complété le cours
+          return new Date(course.end_date) > new Date() && !course.completed_students.includes(email);
         });
+  
         const past = studentCourses.filter((course) => {
-          return new Date(course.end_date) <= new Date(); // Cours passés
+          // Vérifie si la date de fin est dans le passé OU que l'étudiant a déjà complété l'évaluation
+          return (
+            new Date(course.end_date) <= new Date() || course.completed_students.includes(email)
+          );
         });
-
+  
         setOngoingEvaluations(ongoing);
         setPastEvaluations(past);
       } catch (error) {
@@ -44,9 +49,10 @@ const StudentHome = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchEvaluations();
   }, [email]);
+  
 
   // Rediriger l'utilisateur vers la page d'évaluation
   const handleNavigate = (courseId) => {

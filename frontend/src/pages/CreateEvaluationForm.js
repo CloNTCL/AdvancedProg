@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Box, Typography, Select, MenuItem, IconButton } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/evaluationForm.css";
@@ -8,8 +8,7 @@ const CreateEvaluationForm = () => {
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
 
-  // Questions par défaut
-  const defaultQuestions = [
+  const [questions, setQuestions] = useState([
     {
       id: 1,
       text: "Rate the amount of work you did during this course",
@@ -20,13 +19,13 @@ const CreateEvaluationForm = () => {
       id: 2,
       text: "Rate your level of involvement in the activities of this course",
       type: "Single Choice",
-      choices: ["Active", "Moderate", "Passive"],
+      choices: ["Too much", "Enough", "Too little"],
     },
     {
       id: 3,
       text: "How much practical knowledge have you gained from this course?",
       type: "Single Choice",
-      choices: ["A lot", "Moderate", "Very little"],
+      choices: ["Too much", "Enough", "Too little"],
     },
     {
       id: 4,
@@ -70,13 +69,30 @@ const CreateEvaluationForm = () => {
       type: "Single Choice",
       choices: ["Very satisfy", "satisfy", "Not satisfy"],
     },
-  ];
-
-  const [questions, setQuestions] = useState(defaultQuestions);
-  const [startDate] = useState(today); // Début = aujourd'hui
+  ]);
+  
+  const [startDate] = useState(today);
   const [endDate, setEndDate] = useState("");
+  const [courseDetails, setCourseDetails] = useState(null);
+  const [error, setError] = useState("");
 
-  // Ajouter une nouvelle question
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/v1/courses/${courseId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch course details.");
+        }
+        const data = await response.json();
+        setCourseDetails(data.course);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchCourseDetails();
+  }, [courseId]);
+
   const handleAddQuestion = () => {
     const newQuestion = {
       id: questions.length + 1,
@@ -87,12 +103,10 @@ const CreateEvaluationForm = () => {
     setQuestions([...questions, newQuestion]);
   };
 
-  // Mettre à jour le texte de la question
   const handleQuestionChange = (id, text) => {
     setQuestions(questions.map((q) => (q.id === id ? { ...q, text } : q)));
   };
 
-  // Mettre à jour le type de question
   const handleTypeChange = (id, type) => {
     setQuestions(
       questions.map((q) =>
@@ -103,89 +117,67 @@ const CreateEvaluationForm = () => {
     );
   };
 
-  // Ajouter un choix
-  const handleAddChoice = (id) => {
-    setQuestions(
-      questions.map((q) =>
-        q.id === id ? { ...q, choices: [...q.choices, ""] } : q
-      )
-    );
-  };
-
-  // Mettre à jour un choix
-  const handleChoiceChange = (id, index, text) => {
-    setQuestions(
-      questions.map((q) =>
-        q.id === id
-          ? {
-              ...q,
-              choices: q.choices.map((choice, i) => (i === index ? text : choice)),
-            }
-          : q
-      )
-    );
-  };
-
-  // Supprimer un choix
-  const handleRemoveChoice = (id, index) => {
-    setQuestions(
-      questions.map((q) =>
-        q.id === id
-          ? { ...q, choices: q.choices.filter((_, i) => i !== index) }
-          : q
-      )
-    );
-  };
-
-  // Supprimer une question
-  const handleRemoveQuestion = (id) => {
-    setQuestions(questions.filter((q) => q.id !== id));
-  };
-
-  // Soumettre le formulaire
   const handleSubmit = async () => {
+    if (!courseDetails) {
+      alert("Course details not loaded yet.");
+      return;
+    }
+
     const evaluationData = {
       course_id: courseId,
+      course_name: courseDetails.course_name,
+      teacher_name: courseDetails.teacher_name,
+      students: courseDetails.students,
       start_date: startDate,
       end_date: endDate,
       questions,
     };
-  
+
     try {
-      // Step 1: Create the evaluation
       const evaluationResponse = await fetch("http://localhost:3000/api/v1/evaluations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(evaluationData),
       });
-  
+
       if (!evaluationResponse.ok) {
         throw new Error("Failed to create evaluation.");
       }
-  
-      // Step 2: Update the course status to being evaluated
+
       const courseUpdateResponse = await fetch(`http://localhost:3000/api/v1/courses/${courseId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ is_being_evaluated: true }),
       });
-  
+
       if (!courseUpdateResponse.ok) {
         throw new Error("Failed to update course status.");
       }
-  
-      // Navigate back to the admin page on success
+
       navigate("/admin");
     } catch (error) {
       alert(error.message);
     }
   };
-  
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (!courseDetails) {
+    return <p>Loading course details...</p>;
+  }
 
   return (
     <Box className="evaluation-form-container">
       <Typography variant="h4" gutterBottom>
-        Create Evaluation for Course: {courseId}
+        Create Evaluation for {courseDetails.course_name}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Teacher: {courseDetails.teacher_name}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Enrolled Students: {courseDetails.students.join(", ")}
       </Typography>
 
       <Box className="date-inputs">
@@ -226,34 +218,6 @@ const CreateEvaluationForm = () => {
               <MenuItem value="Multiple Choice">Multiple Choice</MenuItem>
               <MenuItem value="Rating">Rating</MenuItem>
             </Select>
-            {(question.type === "Multiple Choice" || question.type === "Single Choice") && (
-              <Box className="choices-container">
-                {question.choices.map((choice, i) => (
-                  <Box key={i} className="choice-item">
-                    <TextField
-                      fullWidth
-                      value={choice}
-                      onChange={(e) => handleChoiceChange(question.id, i, e.target.value)}
-                      className="choice-input"
-                      placeholder={`Choice ${i + 1}`}
-                    />
-                    <IconButton onClick={() => handleRemoveChoice(question.id, i)} color="error">
-                      ❌
-                    </IconButton>
-                  </Box>
-                ))}
-                <Button variant="outlined" color="primary" onClick={() => handleAddChoice(question.id)}>
-                  Add Choice
-                </Button>
-              </Box>
-            )}
-            <Button
-              variant="text"
-              color="error"
-              onClick={() => handleRemoveQuestion(question.id)}
-            >
-              Remove Question
-            </Button>
           </Box>
         ))}
         <Button variant="outlined" color="primary" onClick={handleAddQuestion}>

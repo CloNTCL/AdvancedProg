@@ -23,6 +23,21 @@ exports.createEvaluation = async (req, res) => {
   }
 };
 
+//Récupérer tous les évalutions
+exports.getAllEvaluationCourses = async (req, res) => {
+  try {
+    const evaluation = await Evaluation.find();
+
+    if (!evaluation || evaluation.length === 0) {
+      return res.status(404).json({ message: "Evaluations not found" });      
+    }
+
+    res.status(200).json({evaluation})
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
 // Récupérer une évaluation par ID de cours
 exports.getEvaluationByCourseId = async (req, res) => {
   try {
@@ -36,5 +51,28 @@ exports.getEvaluationByCourseId = async (req, res) => {
     res.status(200).json({ evaluation });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+};
+
+// Mark evaluation as completed by a student
+exports.completeEvaluation = async (req, res) => {
+  const { courseId } = req.params;
+  const { studentEmail } = req.body;
+
+  try {
+    // Find the evaluation and add the student to completed_students if not already added
+    const evaluation = await Evaluation.findOneAndUpdate(
+      { course_id: courseId },
+      { $addToSet: { completed_students: studentEmail } }, // Ensures no duplicate entries
+      { new: true }
+    );
+
+    if (!evaluation) {
+      return res.status(404).json({ message: "Evaluation not found" });
+    }
+
+    res.status(200).json({ message: "Evaluation marked as completed", evaluation });
+  } catch (error) {
+    res.status(500).json({ message: "Error marking evaluation as completed", error: error.message });
   }
 };

@@ -44,16 +44,28 @@ const EvaluationForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ student_name: studentName, responses }),
       });
-
-      if (response.ok) {
-        navigate("/student");
-      } else {
+  
+      if (!response.ok) {
         throw new Error("Failed to submit evaluation");
       }
+  
+      // Mark the evaluation as completed for the student
+      const completeResponse = await fetch(`http://localhost:3000/api/v1/evaluations/${courseId}/complete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentEmail: localStorage.getItem("email") }), // Student's email from localStorage
+      });
+  
+      if (!completeResponse.ok) {
+        throw new Error("Failed to mark evaluation as completed");
+      }
+  
+      navigate("/student");
     } catch (error) {
       alert(error.message);
     }
   };
+  
 
   if (isLoading) return <p>Loading evaluation...</p>;
   if (error) return <p>Error: {error}</p>;

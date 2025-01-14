@@ -8,6 +8,7 @@ import TeacherCourseDetails from "../pages/teachercoursedetails";
 import AdminHome from "../pages/AdminHome";
 import CreateEvaluationForm from "../pages/CreateEvaluationForm";
 import EvaluationForm from "../pages/EvaluationForm";
+import ResultsPage from "../pages/ResultsPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/teacher" element={<TeacherHome />} /> 
         <Route path="/teacher/cours/:courseCode" element={<TeacherCourseDetails />} /> 
         <Route path="/student/evaluate/:courseId" element={<EvaluationForm />} /> 
+        <Route path="/admin/results/:courseId" element={<ResultsPage />} />
       </Routes>
     </Router>
   );

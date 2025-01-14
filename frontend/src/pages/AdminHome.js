@@ -82,7 +82,7 @@ const AdminHome = () => {
 
         <Box className="module-section">
           <Typography variant="h5" gutterBottom>
-            Currently Being Evaluated
+            Currently Being Evaluated or Evaluated
           </Typography>
           <Box className="module-list">
             {beingEvaluatedModules.length > 0 ? (
@@ -96,22 +96,20 @@ const AdminHome = () => {
                       Code: {module.course_id}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Start Date: {module.start_date.split("T")[0]}
+                      Course Start Date: {module.start_date.split("T")[0]}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      End Date: {module.end_date.split("T")[0]}
-                    </Typography>
-                    <Typography variant="body2" className="evaluation-status">
-                      Participants Completed: {module.completed_students?.length || 0}/{module.students?.length || 0}
+                      Course End Date: {module.end_date.split("T")[0]}
                     </Typography>
                     <Button
                       variant="contained"
-                      color="primary"
-                      className="create-evaluation-button"
-                      disabled
+                      color="secondary"
+                      className="view-results-button"
+                      onClick={() => navigate(`/admin/results/${module.course_id}`)}
                     >
-                      Create Evaluation
+                      View Results
                     </Button>
+
                   </CardContent>
                 </Card>
               ))
@@ -139,10 +137,10 @@ const AdminHome = () => {
                       Code: {module.course_id}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Start Date: {module.start_date.split("T")[0]}
+                      Course Start Date: {module.start_date.split("T")[0]}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      End Date: {module.end_date.split("T")[0]}
+                      Course End Date: {module.end_date.split("T")[0]}
                     </Typography>
                     <Button
                       variant="contained"
