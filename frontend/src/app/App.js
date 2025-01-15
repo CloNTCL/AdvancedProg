@@ -9,6 +9,7 @@ import AdminHome from "../pages/AdminHome";
 import CreateEvaluationForm from "../pages/CreateEvaluationForm";
 import EvaluationForm from "../pages/EvaluationForm";
 import ResultsPage from "../pages/ResultsPage";
+import "../utils/i18n"
 
 function App() {
   return (

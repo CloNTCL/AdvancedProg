@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Box, TextField, Button } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  TextField,
+  Button,
+} from "@mui/material";
 import Header from "../pages/header";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // Import pour la traduction
 import "../styles/admin.css";
 
 const AdminHome = () => {
+  const { t } = useTranslation(); // Hook pour les traductions
   const [modules, setModules] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredModules, setFilteredModules] = useState([]);
@@ -49,11 +58,11 @@ const AdminHome = () => {
   };
 
   if (isLoading) {
-    return <p>Loading modules...</p>;
+    return <p>{t("loading")}</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>{t("error")}: {error}</p>;
   }
 
   const beingEvaluatedModules = filteredModules.filter(
@@ -69,20 +78,21 @@ const AdminHome = () => {
       <main className="admin-content">
         <Box className="search-bar">
           <Typography variant="h4" gutterBottom>
-            Modules
+            {t("modules.title")}
           </Typography>
           <TextField
             variant="outlined"
-            placeholder="Search for modules"
+            placeholder={t("modules.searchPlaceholder")}
             value={searchTerm}
             onChange={handleSearchChange}
             className="search-input"
           />
         </Box>
 
+        {/* Modules being evaluated */}
         <Box className="module-section">
           <Typography variant="h5" gutterBottom>
-            Currently Being Evaluated or Evaluated
+            {t("modules.evaluated")}
           </Typography>
           <Box className="module-list">
             {beingEvaluatedModules.length > 0 ? (
@@ -93,13 +103,13 @@ const AdminHome = () => {
                       {module.course_name}
                     </Typography>
                     <Typography variant="subtitle1" className="module-code">
-                      Code: {module.course_id}
+                      {t("modules.code")}: {module.course_id}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Course Start Date: {module.start_date.split("T")[0]}
+                      {t("modules.startDate")}: {module.start_date.split("T")[0]}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Course End Date: {module.end_date.split("T")[0]}
+                      {t("modules.endDate")}: {module.end_date.split("T")[0]}
                     </Typography>
                     <Button
                       variant="contained"
@@ -107,23 +117,23 @@ const AdminHome = () => {
                       className="view-results-button"
                       onClick={() => navigate(`/admin/results/${module.course_id}`)}
                     >
-                      View Results
+                      {t("modules.viewResults")}
                     </Button>
-
                   </CardContent>
                 </Card>
               ))
             ) : (
               <Typography variant="body1" className="no-modules">
-                No modules are currently being evaluated.
+                {t("modules.noEvaluated")}
               </Typography>
             )}
           </Box>
         </Box>
 
+        {/* Modules not yet evaluated */}
         <Box className="module-section">
           <Typography variant="h5" gutterBottom>
-            Not Evaluated
+            {t("modules.notEvaluated")}
           </Typography>
           <Box className="module-list">
             {notEvaluatedModules.length > 0 ? (
@@ -134,13 +144,13 @@ const AdminHome = () => {
                       {module.course_name}
                     </Typography>
                     <Typography variant="subtitle1" className="module-code">
-                      Code: {module.course_id}
+                      {t("modules.code")}: {module.course_id}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Course Start Date: {module.start_date.split("T")[0]}
+                      {t("modules.startDate")}: {module.start_date.split("T")[0]}
                     </Typography>
                     <Typography variant="body2" className="module-dates">
-                      Course End Date: {module.end_date.split("T")[0]}
+                      {t("modules.endDate")}: {module.end_date.split("T")[0]}
                     </Typography>
                     <Button
                       variant="contained"
@@ -148,14 +158,14 @@ const AdminHome = () => {
                       className="create-evaluation-button"
                       onClick={() => handleCreateEvaluation(module)}
                     >
-                      Create Evaluation
+                      {t("modules.createEvaluation")}
                     </Button>
                   </CardContent>
                 </Card>
               ))
             ) : (
               <Typography variant="body1" className="no-modules">
-                No modules to evaluate.
+                {t("modules.noToEvaluate")}
               </Typography>
             )}
           </Box>

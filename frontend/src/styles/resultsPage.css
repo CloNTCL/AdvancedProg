@@ -84,4 +84,50 @@ body {
   a:hover {
     text-decoration: underline;
   }
+
+  .results-container {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  .styled-table-container {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .table-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .table-row {
+    &:nth-of-type(even) {
+      background-color: #f8f9fa;
+    }
+  }
+  
+  .table-cell {
+    font-size: 14px;
+    padding: 12px;
+    color: #343a40;
+  }
+  
+  .table-row:hover {
+    background-color: #e9ecef;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .tt {
+    text-align: center;
+    color: grey;
+    font-size: 20px;
+  }
+  
   
