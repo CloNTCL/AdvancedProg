@@ -130,6 +130,7 @@ const CreateEvaluationForm = () => {
       students: courseDetails.students,
       start_date: startDate,
       end_date: endDate,
+      teacher_email: courseDetails.teacher_email,
       questions,
     };
 

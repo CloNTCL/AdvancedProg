@@ -13,6 +13,7 @@ const EvaluationSchema = new mongoose.Schema({
   end_date: { type: Date, required: true },
   questions: { type: [QuestionSchema], required: true },
   teacher_name: { type: String},
+  teacher_email: { type: String}, 
   students: { type: [String]}, 
   completed_students: { type: [String], default: [] }, 
 });

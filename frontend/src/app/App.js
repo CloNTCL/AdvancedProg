@@ -19,7 +19,7 @@ function App() {
         <Route path="/admin/create-evaluation/:courseId" element={<CreateEvaluationForm />} />
         <Route path="/student" element={<Student />} />
         <Route path="/teacher" element={<TeacherHome />} /> 
-        <Route path="/teacher/cours/:courseCode" element={<TeacherCourseDetails />} /> 
+        <Route path="/teacher/cours/:courseId" element={<TeacherCourseDetails />} /> 
         <Route path="/student/evaluate/:courseId" element={<EvaluationForm />} /> 
         <Route path="/admin/results/:courseId" element={<ResultsPage />} />
       </Routes>

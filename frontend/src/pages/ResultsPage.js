@@ -5,7 +5,7 @@ import Header from "../pages/header";
 import '../styles/resultsPage.css';
 
 const ResultsPage = () => {
-  const { courseCode } = useParams(); // Get course code from URL
+  const { courseId } = useParams(); // Get course code from URL
   const [course, setCourse] = useState(null);
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ const ResultsPage = () => {
 
         const data = await response.json();
         const matchedCourse = data.courses.find(
-          (course) => course.course_code === courseCode // Matching by course_code
+          (course) => course.course_id === courseId // Matching by course_code
         );
 
         if (!matchedCourse) {
@@ -44,10 +44,14 @@ const ResultsPage = () => {
         }
 
         const data = await response.json();
-        // Filter results by courseCode after fetching all results
+        // Filter results by courseId after fetching all results
         const filteredResults = data.results.filter(
-          (result) => result.course_code === courseCode
+            (result) => result.course_id === courseId
         );
+        console.log("Fetched results:", data.results);
+        console.log("Filtering by courseId:", courseId);
+
+          
         setResults(filteredResults);
       } catch (err) {
         setError(err.message);
@@ -58,7 +62,7 @@ const ResultsPage = () => {
 
     fetchCourseDetails();
     fetchResults();
-  }, [courseCode]);
+  }, [courseId]);
 
   if (isLoading) {
     return <p>Loading course details...</p>;
@@ -76,7 +80,7 @@ const ResultsPage = () => {
     <div>
       <Header />
       <Box className="results-container">
-        <Typography variant="h4">Results for Course: {courseCode}</Typography>
+        <Typography variant="h4">Results for Course: {courseId}</Typography>
         {results.length > 0 ? (
           results.map((result, index) => (
             <Card key={index} className="result-card">

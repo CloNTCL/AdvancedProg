@@ -4,7 +4,7 @@ import Header from "../pages/header";
 import "../styles/teachercoursedetails.css";
 
 const TeacherCourseDetails = () => {
-  const { courseCode } = useParams(); // Get course code from URL
+  const { courseId } = useParams(); // Get course code from URL
   const [course, setCourse] = useState(null);
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
@@ -20,7 +20,7 @@ const TeacherCourseDetails = () => {
 
         const data = await response.json();
         const matchedCourse = data.courses.find(
-          (course) => course.course_id === courseCode
+          (course) => course.course_id === courseId
         );
 
         if (!matchedCourse) {
@@ -43,7 +43,7 @@ const TeacherCourseDetails = () => {
         }
 
         const data = await response.json();
-        setResults(data.results.filter((result) => result.course_id === courseCode));
+        setResults(data.results.filter((result) => result.course_id === courseId));
       } catch (err) {
         setError(err.message);
       } finally {
@@ -53,7 +53,7 @@ const TeacherCourseDetails = () => {
 
     fetchCourseDetails();
     fetchResults();
-  }, [courseCode]);
+  }, [courseId]);
 
   if (isLoading) {
     return <p>Loading course details...</p>;
