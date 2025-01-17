@@ -15,7 +15,7 @@ const TeacherHome = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/v1/courses");
+        const response = await fetch("https://advancedprog-anut.onrender.com/api/v1/courses");
         if (!response.ok) {
           throw new Error(t("errorT.failedToFetchCourses"));
         }
@@ -27,7 +27,7 @@ const TeacherHome = () => {
         setAllCourses(teacherCourses);
 
         const evaluatingResponse = await fetch(
-          "http://localhost:3000/api/v1/evaluations/getAllEvaluation"
+          "https://advancedprog-anut.onrender.com/api/v1/evaluations/getAllEvaluation"
         );
         if (!evaluatingResponse.ok) {
           throw new Error(t("errorT.failedToFetchEvaluations"));

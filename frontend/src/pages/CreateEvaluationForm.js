@@ -79,7 +79,7 @@ const CreateEvaluationForm = () => {
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/courses/${courseId}`);
+        const response = await fetch(`https://advancedprog-anut.onrender.com/api/v1/courses/${courseId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch course details.");
         }
@@ -135,7 +135,7 @@ const CreateEvaluationForm = () => {
     };
 
     try {
-      const evaluationResponse = await fetch("http://localhost:3000/api/v1/evaluations", {
+      const evaluationResponse = await fetch("https://advancedprog-anut.onrender.com/api/v1/evaluations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(evaluationData),
@@ -145,7 +145,7 @@ const CreateEvaluationForm = () => {
         throw new Error("Failed to create evaluation.");
       }
 
-      const courseUpdateResponse = await fetch(`http://localhost:3000/api/v1/courses/${courseId}`, {
+      const courseUpdateResponse = await fetch(`https://advancedprog-anut.onrender.com/api/v1/courses/${courseId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ is_being_evaluated: true }),

@@ -22,11 +22,11 @@ const Authentification = () => {
       // Identifier le rôle à partir de l'email
       let apiEndpoint = '';
       if (email.includes('student')) {
-        apiEndpoint = 'http://localhost:3000/api/v1/studentUsers/studentLogin';
+        apiEndpoint = 'https://advancedprog-anut.onrender.com/api/v1/studentUsers/studentLogin';
       } else if (email.includes('admin')) {
-        apiEndpoint = 'http://localhost:3000/api/v1/adminUsers/adminLogin';
+        apiEndpoint = 'https://advancedprog-anut.onrender.com/api/v1/adminUsers/adminLogin';
       } else if (email.includes('teacher')) {
-        apiEndpoint = 'http://localhost:3000/api/v1/teacherUsers/teacherLogin';
+        apiEndpoint = 'https://advancedprog-anut.onrender.com/api/v1/teacherUsers/teacherLogin';
       } else {
         setErrorMessage('Invalid email format!');
         return;

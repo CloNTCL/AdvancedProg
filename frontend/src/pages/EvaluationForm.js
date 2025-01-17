@@ -17,7 +17,7 @@ const EvaluationForm = () => {
   useEffect(() => {
     const fetchEvaluation = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/evaluations/${courseId}`);
+        const response = await fetch(`https://advancedprog-anut.onrender.com/api/v1/evaluations/${courseId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch evaluation");
         }
@@ -39,7 +39,7 @@ const EvaluationForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/results/${courseId}/submit`, {
+      const response = await fetch(`https://advancedprog-anut.onrender.com/api/v1/results/${courseId}/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ student_name: studentName, responses }),
@@ -50,7 +50,7 @@ const EvaluationForm = () => {
       }
   
       // Mark the evaluation as completed for the student
-      const completeResponse = await fetch(`http://localhost:3000/api/v1/evaluations/${courseId}/complete`, {
+      const completeResponse = await fetch(`https://advancedprog-anut.onrender.com/api/v1/evaluations/${courseId}/complete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ studentEmail: localStorage.getItem("email") }), // Student's email from localStorage

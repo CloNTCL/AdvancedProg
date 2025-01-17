@@ -19,7 +19,7 @@ const StudentHome = () => {
     const fetchEvaluations = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/v1/evaluations/getAllEvaluation"
+          "https://advancedprog-anut.onrender.com/api/v1/evaluations/getAllEvaluation"
         );
         if (!response.ok) {
           throw new Error(t("errorS.failedToFetchCourses"));
