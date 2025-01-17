@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from "react";
 import Header from "../pages/header";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
+import { useTranslation } from "react-i18next"; // Import pour les traductions
 import "../styles/teacherhome.css";
 
 const TeacherHome = () => {
+  const { t } = useTranslation(); // Hook pour les traductions
   const [allCourses, setAllCourses] = useState([]);
   const [evaluatingCourses, setEvaluatingCourses] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const fullName = localStorage.getItem("fullName"); // Teacher's full name
+  const fullName = localStorage.getItem("fullName");
 
-  // Fetch courses
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/v1/courses");
         if (!response.ok) {
-          throw new Error("Failed to fetch courses");
+          throw new Error(t("errorT.failedToFetchCourses"));
         }
 
         const data = await response.json();
-        // Filter courses by the teacher's name
         const teacherCourses = data.courses.filter(
           (course) => course.teacher_name === fullName
         );
         setAllCourses(teacherCourses);
 
-        // Fetch courses currently being evaluated
         const evaluatingResponse = await fetch(
           "http://localhost:3000/api/v1/evaluations/getAllEvaluation"
         );
         if (!evaluatingResponse.ok) {
-          throw new Error("Failed to fetch evaluating courses");
+          throw new Error(t("errorT.failedToFetchEvaluations"));
         }
 
         const evaluatingData = await evaluatingResponse.json();
@@ -48,15 +47,14 @@ const TeacherHome = () => {
     };
 
     fetchCourses();
-  }, [fullName]);
+  }, [fullName, t]);
 
-  // Loading and error states
   if (isLoading) {
-    return <p>Loading courses...</p>;
+    return <p>{t("loadingT")}</p>;
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>{t("errorT.generic")}: {error}</p>;
   }
 
   return (
@@ -64,13 +62,13 @@ const TeacherHome = () => {
       <Header />
       <main className="teacher-content">
         <Typography variant="h4" gutterBottom>
-          Hello {fullName}, Here are your courses
+          {t("teacherHome.greeting", { fullName })}
         </Typography>
 
         {/* All Courses Section */}
         <section className="course-section">
           <Typography variant="h5" gutterBottom>
-            All Courses
+            {t("teacherHome.allCourses")}
           </Typography>
           <Box className="course-list">
             {allCourses.length > 0 ? (
@@ -81,14 +79,14 @@ const TeacherHome = () => {
                       {course.course_name}
                     </Typography>
                     <Typography variant="subtitle1" className="course-code">
-                      Code: {course.course_id}
+                      {t("teacherHome.courseCode")}: {course.course_id}
                     </Typography>
                   </CardContent>
                 </Card>
               ))
             ) : (
               <Typography variant="body1" className="no-courses">
-                No courses found.
+                {t("teacherHome.noCourses")}
               </Typography>
             )}
           </Box>
@@ -97,7 +95,7 @@ const TeacherHome = () => {
         {/* Courses Being Evaluated Section */}
         <section className="course-section">
           <Typography variant="h5" gutterBottom>
-            Courses Being Evaluated Or Already Evaluated
+            {t("teacherHome.evaluatingCourses")}
           </Typography>
           <Box className="course-list">
             {evaluatingCourses.length > 0 ? (
@@ -108,13 +106,13 @@ const TeacherHome = () => {
                       {course.course_name}
                     </Typography>
                     <Typography variant="subtitle1" className="course-code">
-                      Code: {course.course_id}
+                      {t("teacherHome.courseCode")}: {course.course_id}
                     </Typography>
                     <Typography variant="body2" className="evaluation-status">
-                      Start Date: {new Date(course.start_date).toLocaleDateString()}
+                      {t("teacherHome.startDate")}: {new Date(course.start_date).toLocaleDateString()}
                     </Typography>
                     <Typography variant="body2" className="evaluation-status">
-                      End Date: {new Date(course.end_date).toLocaleDateString()}
+                      {t("teacherHome.endDate")}: {new Date(course.end_date).toLocaleDateString()}
                     </Typography>
                     <Button
                       variant="contained"
@@ -122,14 +120,14 @@ const TeacherHome = () => {
                       className="course-button"
                       href={`/teacher/cours/${course.course_id}`}
                     >
-                      View Details and Evaluation Statistics
+                      {t("teacherHome.viewDetails")}
                     </Button>
                   </CardContent>
                 </Card>
               ))
             ) : (
               <Typography variant="body1" className="no-courses">
-                No courses currently being evaluated.
+                {t("teacherHome.noEvaluatingCourses")}
               </Typography>
             )}
           </Box>

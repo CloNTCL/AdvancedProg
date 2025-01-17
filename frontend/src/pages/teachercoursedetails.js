@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../pages/header";
+import { useTranslation } from "react-i18next"; // Import pour les traductions
 import "../styles/teachercoursedetails.css";
 
 const TeacherCourseDetails = () => {
-  const { courseId } = useParams(); // Get course code from URL
+  const { t } = useTranslation(); // Hook pour les traductions
+  const { courseId } = useParams();
   const [course, setCourse] = useState(null);
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
@@ -15,7 +17,7 @@ const TeacherCourseDetails = () => {
       try {
         const response = await fetch(`http://localhost:3000/api/v1/courses`);
         if (!response.ok) {
-          throw new Error("Failed to fetch courses");
+          throw new Error(t("errorD.failedToFetchCourses"));
         }
 
         const data = await response.json();
@@ -24,7 +26,7 @@ const TeacherCourseDetails = () => {
         );
 
         if (!matchedCourse) {
-          setError("Course not found");
+          setError(t("errorD.courseNotFound"));
         } else {
           setCourse(matchedCourse);
         }
@@ -39,7 +41,7 @@ const TeacherCourseDetails = () => {
           "http://localhost:3000/api/v1/results/getAllResults"
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch survey results");
+          throw new Error(t("errorD.failedToFetchResults"));
         }
 
         const data = await response.json();
@@ -53,21 +55,8 @@ const TeacherCourseDetails = () => {
 
     fetchCourseDetails();
     fetchResults();
-  }, [courseId]);
+  }, [courseId, t]);
 
-  if (isLoading) {
-    return <p>Loading course details...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  if (!course) {
-    return <h2>This course does not exist or is not assigned to you.</h2>;
-  }
-
-  // Calculate statistics for the selected questions
   const calculateStatistics = (questionText) => {
     const responses = results.map((result) => result.responses[questionText]);
     const responseCounts = responses.reduce((acc, response) => {
@@ -96,22 +85,36 @@ const TeacherCourseDetails = () => {
     },
   ];
 
+  if (isLoading) {
+    return <p>{t("loadingD")}</p>;
+  }
+
+  if (error) {
+    return <p>{t("errorD.generic")}: {error}</p>;
+  }
+
+  if (!course) {
+    return <h2>{t("errorD.courseNotAssigned")}</h2>;
+  }
+
   return (
-    <div className="teacher-course-details-container">
+    <div>
       <Header />
       <main className="teacher-course-content">
-        <h1>Course Details: {course.course_name}</h1>
+        <h1>{t("courseDetails.title", { courseName: course.course_name })}</h1>
         <p>
-          <strong>Course Code:</strong> {course.course_id}
+          <strong>{t("courseDetails.courseCode")}:</strong> {course.course_id}
         </p>
         <p>
-          <strong>Teacher:</strong> {course.teacher_name}
+          <strong>{t("courseDetails.teacher")}:</strong> {course.teacher_name}
         </p>
         <p>
-          <strong>Dates:</strong> {new Date(course.start_date).toLocaleDateString()} -{" "}
+          <strong>{t("courseDetails.dates")}:</strong>{" "}
+          {new Date(course.start_date).toLocaleDateString()} -{" "}
           {new Date(course.end_date).toLocaleDateString()}
         </p>
 
+        {/* Graphique des statistiques */}
         <div className="charts-container">
           {importantQuestions.map((question, index) => {
             const { labels, data } = calculateStatistics(question.text);
@@ -121,23 +124,23 @@ const TeacherCourseDetails = () => {
                 <h3>{question.text}</h3>
                 {results.length > 0 ? (
                   <div className="progress-bars">
-                    {labels.map((label, index) => (
+                    {labels.map((label, idx) => (
                       <div key={label} className="progress-bar-item">
                         <span>{label}</span>
                         <div
                           className="progress-bar"
                           style={{
-                            backgroundColor: ["#FF6384", "#36A2EB", "#4CAF50"][index],
-                            width: `${data[index]}%`,
+                            backgroundColor: ["#FF6384", "#36A2EB", "#4CAF50"][idx],
+                            width: `${data[idx]}%`,
                           }}
                         >
-                          <div style={{ color: "black" }}>{data[index]}%</div>
+                          <div style={{ color: "black" }}>{data[idx]}%</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p>No responses yet.</p>
+                  <p>{t("noResponses")}</p>
                 )}
               </div>
             );
