@@ -78,9 +78,9 @@ Too see the database table and data, download and install mongoDB compass app if
 
 Use this link to connect to the database:
 
-```bash
+
 mongodb+srv://dieuveillenkoud:udvFrvIhPia09oAH@cluster0.fifmc.mongodb.net
-```
+
 and click on AdvancedProg to see the database table and data
 
 ### Usage
