@@ -63,16 +63,25 @@ For run the application, you must run backend and the frontend.
 To run the backend, go to the backend folder. 
 ```bash
 cd backend
-npm install
+npm install --legacy-peer-deps
 npm start
 ```
 
 And then, open another console and type
 ```bash
 cd frontend
-npm install
+npm install --legacy-peer-deps
 npm start
-``` 
+```
+
+Too see the database table and data, download and install mongoDB compass app if you don't have it.
+
+Use this link to connect to the database:
+
+```bash
+mongodb+srv://dieuveillenkoud:udvFrvIhPia09oAH@cluster0.fifmc.mongodb.net
+```
+and click on AdvancedProg to see the database table and data
 
 ### Usage
 
