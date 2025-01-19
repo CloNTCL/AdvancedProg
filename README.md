@@ -42,20 +42,8 @@ git clone https://github.com/CloNTCL/AdvancedProg
 
 ### 2. Configure Environment Variables
 
-Create a .env file in the backend directories with the following variables:
+Create a .env file in the backend directories with the same informations of .env file included on the ZIP file
 
-```bash
-NODE_ENV=development
-PORT = 3000
-DATABASE=mongodb+srv://dieuveillenkoud:<PASSWORD>@cluster0.fifmc.mongodb.net/AdvancedProg?retryWrites=true
-DATABASE_PASSWORD= udvFrvIhPia09oAH
-
-EMAIL_USER="signolib59@gmail.com"
-EMAIL_PASS="vsoguzvvippnxmzn"
-
-JWT_SECRET = my_ultra_long_secret_jwt_password
-JWT_EXPIRES_IN=90d
-```
 
 ### Run the Application
 
@@ -74,14 +62,7 @@ npm install --legacy-peer-deps
 npm start
 ```
 
-Too see the database table and data, download and install mongoDB compass app if you don't have it.
 
-Use this link to connect to the database:
-
-
-mongodb+srv://dieuveillenkoud:udvFrvIhPia09oAH@cluster0.fifmc.mongodb.net
-
-and click on AdvancedProg to see the database table and data
 
 ### Usage
 
