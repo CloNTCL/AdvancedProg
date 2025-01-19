@@ -42,20 +42,8 @@ git clone https://github.com/CloNTCL/AdvancedProg
 
 ### 2. Configure Environment Variables
 
-Create a .env file in the backend directories with the following variables:
+Create a .env file in the backend directories with the same informations of .env file included on the ZIP file
 
-```bash
-NODE_ENV=development
-PORT = 3000
-DATABASE=mongodb+srv://dieuveillenkoud:<PASSWORD>@cluster0.fifmc.mongodb.net/AdvancedProg?retryWrites=true
-DATABASE_PASSWORD= udvFrvIhPia09oAH
-
-EMAIL_USER="signolib59@gmail.com"
-EMAIL_PASS="vsoguzvvippnxmzn"
-
-JWT_SECRET = my_ultra_long_secret_jwt_password
-JWT_EXPIRES_IN=90d
-```
 
 ### Run the Application
 
@@ -63,16 +51,18 @@ For run the application, you must run backend and the frontend.
 To run the backend, go to the backend folder. 
 ```bash
 cd backend
-npm install
+npm install --legacy-peer-deps
 npm start
 ```
 
 And then, open another console and type
 ```bash
 cd frontend
-npm install
+npm install --legacy-peer-deps
 npm start
-``` 
+```
+
+
 
 ### Usage
 
